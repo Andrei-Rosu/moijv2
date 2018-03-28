@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {# Commentaire #}
+    <h1> MoiJV !!!</h1>
+    <h2>Liste des utilisateurs</h2>
+    <ul>
+        {# <?php> foreach (users as user): ?>#}
+        {% for user in users %}
+            <li>{{ user.esername }} {{ user.email }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
