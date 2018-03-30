@@ -3,7 +3,7 @@
 {% block body %}
     <div class="card mb-3">
         <div class="card-header">
-            <i class="fa fa-table"></i> Data Table Example
+            <i class="fa fa-table"></i> Data Table Example<a class="btn btn-info" href="{{ path('add_user') }}"><i class="fa fa-plus" ></i>ADD AN USER</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -33,7 +33,8 @@
                         <td>{{ user.email }}</td>
                         <td>{{ user.registerDate | date ('d/m/Y') }}</td>
                         <td>{% for role in user.roles %}{{ role }}{% endfor %}</td>
-                        <td><a class ="btn btn-danger" href="{{ path('delete_user',{'id':user.id}) }}"></a></td>
+                        <td><a class ="btn btn-danger fa fa-trash " href="{{ path('delete_user',{'id':user.id}) }}"> DELETE</a></td>
+                        <td><a class ="btn btn-success fa fa-edit" href="{{ path('edit_user',{'id':user.id}) }}">EDIT</a> </td>
                     </tr>
                    {% endfor %}
                     </tbody>
