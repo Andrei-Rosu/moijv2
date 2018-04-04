@@ -1,11 +1,11 @@
-{% extends "user/:user:layout_user.html.twig" %}
+{% extends "base.html.twig" %}
 {% block body %}
     <div class="row">
         <div class="mx-auto col-md-6">
             {{ form_start(form) }}
             {{ form_widget(form) }}
             {{ form_end(form) }}
-            <a class=" btn badge-info" href="{{ path('user_productlist') }}">Back</a>
+            <a class=" btn btn-info" href="{{ path('user') }}">Back</a>
         </div>
     </div>
 {% endblock %}

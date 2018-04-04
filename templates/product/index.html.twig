@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+{% block title %}My products{% endblock %}
+
+{% block body %}
+  <h1>My products</h1>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.title }}<a href="{{ path('delete_product',{'id':product.id}) }}">DELETE</a> </li>
+        {% endfor %}
+    </ul>
+    {%  if products.haveToPaginate %}
+    {{ pagerfanta(products,{'routeName': 'product_paginated'}) }}
+    {% endif %}
+
+{% endblock %}
