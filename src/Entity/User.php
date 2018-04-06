@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -50,8 +52,23 @@ class User implements UserInterface, \Serializable
     private $roles;
 
     /**
-     * @param mixed $roles
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="owner")
+     * @var Collection $products
      */
+    private $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
+
+
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+
     public function setRoles($roles)
     {
         $this->roles = $roles;
@@ -150,7 +167,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Returns the roles granted to the user.
+     * Returns the roles granted to the product.
      *
      * <code>
      * public function getRoles()
@@ -160,10 +177,10 @@ class User implements UserInterface, \Serializable
      * </code>
      *
      * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
+     * and populated in any number of different ways when the product object
      * is created.
      *
-     * @return (Role|string)[] The user roles
+     * @return (Role|string)[] The product roles
      */
     public function getRoles()
     {
@@ -185,7 +202,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Removes sensitive data from the user.
+     * Removes sensitive data from the product.
      *
      * This is important if, at any given point, sensitive information like
      * the plain-text password is stored on this object.

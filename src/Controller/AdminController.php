@@ -24,7 +24,7 @@ class AdminController extends Controller
         ]);
     }
     /**
-     * @Route("/admin/user/delete/{id}", name="delete_user")
+     * @Route("/admin/product/delete/{id}", name="delete_user")
      */
     public function deleteUser(User $user, ObjectManager $manager )
     {
@@ -33,8 +33,8 @@ class AdminController extends Controller
         return $this->redirectToRoute('admin_dashboard');
     }
     /**
-     * @Route("/admin/user/add", name="add_user")
-     * @Route("/admin/user/edit/(id)", name="edit_user")
+     * @Route("/admin/product/add", name="add_user")
+     * @Route("/admin/product/edit/(id)", name="edit_user")
      */
     public function editUser(\Symfony\Component\HttpFoundation\Request $request, ObjectManager $manager, User $user = null)
     {

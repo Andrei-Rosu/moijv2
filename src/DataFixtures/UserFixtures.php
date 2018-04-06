@@ -14,10 +14,11 @@ class UserFixtures extends Fixture
         for($i = 0; $i < 60; $i++ ){
             $user = new User();
             $user->setUsername('user_'.$i);
-            $user->setPassword(password_hash('user', PASSWORD_BCRYPT));
-            $user->setEmail('user'.$i.'@fake.fr');
+            $user->setPassword(password_hash('product', PASSWORD_BCRYPT));
+            $user->setEmail('product'.$i.'@fake.fr');
             $user->setRegisterDate(new \DateTime('-'.$i.' days'));
             $user->setRoles('ROLE_USER');
+            $this->addReference('user'.$i, $user);
             // $manager persist demande à doctrine de préparer l'insertion de
             // l'entité en base de données -> INSERT INTO
             $manager->persist($user);

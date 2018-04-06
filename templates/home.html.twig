@@ -3,6 +3,9 @@
 {% block body %}
     {# Commentaire #}
     <h1> MoiJV !!!</h1>
-    <h2>Liste des utilisateurs</h2>
+    <h2>Welcome on the home page</h2>
+
+    {% include 'incs/product_list.html.twig' with {'products' : products, 'routeName': 'home_paginated'} %}
+
 
 {% endblock %}

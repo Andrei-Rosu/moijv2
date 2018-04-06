@@ -18,14 +18,14 @@ class HomeController extends Controller
     }
     /**
      * @Route("/home", name="home")
+     * @Route("/home/page{page}", name="home_paginated")
      */
-    public function index(\App\Repository\UserRepository $userRepo)
+    public function index(\App\Repository\ProductRepository $productRepo, $page=1)
 
     {
-        $userList = $userRepo->findAll();
-        $message = 'Bonjour à tous';
-        return $this->render("home.html.twig",[
-            'msg' => $message
+        $products = $productRepo->findPaginated($page);
+        return $this->render("home.html.twig", [
+            'products'=>$products
         ]);
     }
 }

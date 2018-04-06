@@ -3,13 +3,13 @@
 
 {% block body %}
   <h1>My products</h1>
-    <ul>
-        {% for product in products %}
-            <li>{{ product.title }}<a href="{{ path('delete_product',{'id':product.id}) }}">DELETE</a> </li>
-        {% endfor %}
-    </ul>
-    {%  if products.haveToPaginate %}
-    {{ pagerfanta(products,{'routeName': 'product_paginated'}) }}
-    {% endif %}
+    <!-- Jumbotron Header -->
+    <header class="jumbotron my-4">
+        <h1 class="display-3">My products</h1>
+        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
+        <a href="{{ path('add_product') }}" class="btn btn-primary btn-lg">Add product</a>
+    </header>
+
+    {% include 'incs/product_list.html.twig' with {'products' : products, 'routeName': 'product_paginated'} %}
 
 {% endblock %}

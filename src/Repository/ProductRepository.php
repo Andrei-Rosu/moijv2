@@ -3,7 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Product;
+use App\Entity\Tag;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -17,6 +21,52 @@ class ProductRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Product::class);
+    }
+
+    public function findPaginated($page = 1)
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->leftJoin('p.owner', 'u')
+            ->addSelect('u')
+            ->leftJoin('p.tags', 't')
+            ->addSelect('t')
+            ->orderBy('p.id','ASC');
+        $pager = new DoctrineORMAdapter($queryBuilder);
+        $fanta = new Pagerfanta($pager);
+        return $fanta->setMaxPerPage(12)->setCurrentPage($page);
+
+    }
+
+    public function findPaginatedByUser(User $user, $page=1)
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->leftJoin('p.owner', 'u')
+            ->addSelect('u')
+            ->leftJoin('p.tags', 't')
+            ->addSelect('t')
+            ->where('u = :user')
+            ->setParameter('user', $user)
+            ->orderBy('p.id', 'ASC');
+        $pager = new DoctrineORMAdapter($queryBuilder);
+        $fanta = new Pagerfanta($pager);
+        return $fanta->setMaxPerPage(12)->setCurrentPage($page);
+
+    }
+    public function findPaginatedByTag(Tag $tag, $page=1)
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->leftJoin('p.owner', 'u')
+            ->addSelect('u')
+            ->leftJoin('p.tags', 't')
+            ->leftJoin('p.tags', 't2')
+            ->addSelect('t')
+            ->where('t2 = :tag')
+            ->setParameter('tag', $tag)
+            ->orderBy('p.id', 'ASC');
+        $pager = new DoctrineORMAdapter($queryBuilder);
+        $fanta = new Pagerfanta($pager);
+        return $fanta->setMaxPerPage(12)->setCurrentPage($page);
+
     }
 
 //    /**
